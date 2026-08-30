@@ -1,0 +1,18 @@
+import pymysql
+
+connection = pymysql.connect(
+    host="localhost",
+    user="root",
+    password="root",
+    database="store_db"
+)
+cursor = connection.cursor()
+sql="""select c.customer_name,o.total_amount 
+from customers c join orders o
+on c.customer_id=o.customer_id 
+order by total_amount desc
+limit 1"""
+cursor.execute(sql)
+result=cursor.fetchone()
+print(result)
+connection.close()
